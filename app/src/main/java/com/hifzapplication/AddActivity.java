@@ -1,21 +1,17 @@
 package com.hifzapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class AddActivity extends AppCompatActivity {
 
-    private EditText editTextName, editTextAge, editTextClass;
-
-    private Button buttonSubmit;
+    private EditText editTextName;
+    private EditText editTextAge;
 
     DatabaseHelper db;
 
@@ -26,18 +22,11 @@ public class AddActivity extends AppCompatActivity {
 
         editTextName = findViewById(R.id.editTextName);
         editTextAge = findViewById(R.id.editTextAge);
-        editTextClass = findViewById(R.id.editTextClass);
-        buttonSubmit = findViewById(R.id.buttonSubmit);
+        EditText editTextClass = findViewById(R.id.editTextClass);
+        Button buttonSubmit = findViewById(R.id.buttonSubmit);
         db = new DatabaseHelper(this);
 
-        buttonSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                addsudent();
-
-            }
-        });
+        buttonSubmit.setOnClickListener(v -> addsudent());
 
 
 

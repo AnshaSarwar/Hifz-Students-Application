@@ -43,7 +43,7 @@ public class studentViewHolder extends RecyclerView.Adapter<studentViewHolder.My
         holder.classtextview.setText(String.valueOf(student.getCls()));
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, MainActivity3.class);
+            Intent intent = new Intent(context, AssignTasks.class);
             intent.putExtra("studentId", student.getId());
             context.startActivity(intent);
         });
@@ -55,7 +55,6 @@ public class studentViewHolder extends RecyclerView.Adapter<studentViewHolder.My
     }
 
     public static class MyVH extends RecyclerView.ViewHolder {
-        ImageView imageViewFriend;
         TextView textViewFriendName;
         TextView classtextview;
         TextView agetextview;
@@ -63,10 +62,9 @@ public class studentViewHolder extends RecyclerView.Adapter<studentViewHolder.My
 
         public MyVH(@NonNull View itemView) {
             super(itemView);
-            imageViewFriend = itemView.findViewById(R.id.imageViewFriendPicture);
             textViewFriendName = itemView.findViewById(R.id.textViewFriendName);
-            classtextview=itemView.findViewById(R.id.textViewDate);
-            agetextview= itemView.findViewById(R.id.textViewCity);
+            classtextview=itemView.findViewById(R.id.textViewClass);
+            agetextview= itemView.findViewById(R.id.textViewAge);
 
         }
     }
