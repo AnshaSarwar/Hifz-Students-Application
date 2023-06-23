@@ -1,4 +1,5 @@
-package com.hifzapplication
+package com.hifzapplication;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,29 +28,26 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.item_student, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.activity_itemstudent, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         // ...
         Student student = studentList.get(position);
         holder.bind(student);
         // Set an OnClickListener for the item
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Student student = studentList.get(position);
+        holder.itemView.setOnClickListener(v -> {
+            Student student1 = studentList.get(position);
 
-                // Start the StudentDetailsActivity and pass the student's id and name as extras
-                Intent intent = new Intent(context, StudentDetailsActivity.class);
-                intent.putExtra("studentId", student.getStudentId());
-                intent.putExtra("studentName", student.getName());
-                intent.putExtra("studentClass", student.getClassName());
-                intent.putExtra("studentAge", student.getAge());
-                context.startActivity(intent);
-            }
+            // Start the StudentDetailsActivity and pass the student's id and name as extras
+            Intent intent = new Intent(context, StudentDetailsActivity.class);
+            intent.putExtra("studentId", student1.getStudentId());
+            intent.putExtra("studentName", student1.getName());
+            intent.putExtra("studentClass", student1.getClassName());
+            intent.putExtra("studentAge", student1.getAge());
+            context.startActivity(intent);
         });
     }
 
@@ -58,6 +56,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
     public int getItemCount() {
         return studentList.size();
     }
+    @SuppressLint("NotifyDataSetChanged")
     public void updateStudents(List<Student> updatedStudents) {
         studentList = updatedStudents;
         notifyDataSetChanged();
@@ -81,22 +80,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             textViewName.setText(student.getName());
 
             // Set click listeners for the update and delete buttons
-            buttonUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Call the updateStudent method from the activity and pass the student ID
-                    int studentId = student.getStudentId();
-                    ((ListOfStudentsActivity) itemView.getContext()).updateStudent(studentId);
-                }
+            buttonUpdate.setOnClickListener(v -> {
+                // Call the updateStudent method from the activity and pass the student ID
+                int studentId = student.getStudentId();
+                ((ListOfStudentsActivity) itemView.getContext()).updateStudent(studentId);
             });
 
-            buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Call the deleteStudent method from the activity and pass the student ID
-                    int studentId = student.getStudentId();
-                    ((ListOfStudentsActivity) itemView.getContext()).deleteStudent(studentId);
-                }
+            buttonDelete.setOnClickListener(v -> {
+                // Call the deleteStudent method from the activity and pass the student ID
+                int studentId = student.getStudentId();
+                ((ListOfStudentsActivity) itemView.getContext()).deleteStudent(studentId);
             });
         }
     }

@@ -23,7 +23,7 @@ public class ListOfStudentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_of_students);
+        setContentView(R.layout.activity_list);
 
         recyclerViewStudents = findViewById(R.id.recyclerViewStudents);
         recyclerViewStudents.setLayoutManager(new LinearLayoutManager(this));

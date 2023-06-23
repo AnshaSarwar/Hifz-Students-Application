@@ -4,20 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- Input fields for student details -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Hifz Application"
+        android:textAllCaps="true"
+        android:textColor="#212121"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
 
-
-    <EditText
-        android:id="@+id/editTextName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:minHeight="48dp" />
 
     <EditText
         android:id="@+id/editTextAge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Age"
+        android:inputType="numberDecimal"
         android:minHeight="48dp" />
 
     <EditText
@@ -25,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Class"
+        android:inputType="number"
         android:minHeight="48dp" />
 
     <!-- Button to add the student -->
@@ -32,6 +55,8 @@
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="Add Student" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -22,8 +22,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddActivity"
+            android:name=".AddStudent"
             android:label="Add Activity">
+        </activity>
+        <activity
+            android:name=".ListOfStudentsActivity"
+            android:label="List of students Activity">
+        </activity>
+        <activity
+            android:name=".StudentDetailsActivity"
+            android:label="Student Details Activity">
+        </activity>
+        <activity
+            android:name=".UpdateStudentActivity"
+            android:label="Update Activity">
+        </activity>
+        <activity
+            android:name=".AssignTasks"
+            android:label="Assign Tasks Activity">
+        </activity>
+        <activity
+            android:name=".PreviousHistory"
+            android:label="Previous History Activity">
         </activity>
     </application>
 

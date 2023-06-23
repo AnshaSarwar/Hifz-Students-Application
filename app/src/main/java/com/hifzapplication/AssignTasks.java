@@ -1,144 +1,126 @@
 package com.hifzapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.content.Intent;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.RadioButton;
 
 public class AssignTasks extends AppCompatActivity {
 
-    TextView studentname;
-    TextView parano;
+    private TextView textViewStudentId, textViewStudentName, textViewStudentAge, textViewStudentClass;
 
-    TextView sabaqtextview;
+    private int studentId;
+    private String studentName;
+    private DatabaseHelper databaseHelper;
 
-    Button sabaqdone;
-    Button sabaqrepeat;
-    Button assignsabaq;
-
-
-    TextView sabqitextview;
-
-
-    TextView manziltextview;
-    Button manzildone;
-    Button manzilrepeat;
-
-    DatabaseHelper db;
-
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assigntasks);
 
-        studentname=findViewById(R.id.StudentName);
-        parano=findViewById(R.id.parano);
+        // Retrieve the studentId and studentName from the intent
+        studentId = getIntent().getIntExtra("studentId", -1);
+        studentName = getIntent().getStringExtra("studentName");
+        String studentClass = getIntent().getStringExtra("studentClass");
+        int studentAge = getIntent().getIntExtra("studentAge", -1);
+        String sabaqPara = getIntent().getStringExtra("sabaqPara");
+        String sabaqSurah = getIntent().getStringExtra("sabaqSurah");
+        String sabaqVerse = getIntent().getStringExtra("sabaqVerse");
+        boolean sabaqStatus = getIntent().getBooleanExtra("sabaqStatus", false);
+        String manzilPara = getIntent().getStringExtra("manzilPara");
+        boolean manzilStatus = getIntent().getBooleanExtra("manzilStatus", false);
+        String sabaqiPara = getIntent().getStringExtra("sabaqiPara");
+        boolean sabaqiStatus = getIntent().getBooleanExtra("sabaqiStatus", false);
+        // Set the title of the activity as the student's name
+        //setTitle(studentName);
+        databaseHelper = new DatabaseHelper(this);
+        // Initialize views
+        textViewStudentId = findViewById(R.id.textViewStudentId);
+        textViewStudentName = findViewById(R.id.textViewStudentName);
+        textViewStudentAge = findViewById(R.id.textViewStudentAge);
+        textViewStudentClass = findViewById(R.id.textViewStudentClass);
+        TextView textViewSabaqStatus1 = findViewById(R.id.textViewSabaqStatus1);
+        TextView textViewManzilStatus1 = findViewById(R.id.textViewManzilStatus1);
+        TextView textViewSabaqiStatus1 = findViewById(R.id.textViewSabaqiStatus1);
 
-        sabaqtextview=findViewById(R.id.SabaqRange);
-        sabaqdone=findViewById(R.id.SabaqDoneButton);
-        sabaqrepeat=findViewById(R.id.SabaqRepeatButton);
-        assignsabaq=findViewById(R.id.AssignSabaq);
+
+        // Retrieve and display the student details
+        Student student = databaseHelper.getStudentById(studentId);
+        if (student != null) {
+            textViewStudentId.setText("Roll number: " + String.valueOf(student.getStudentId()));
+            textViewStudentName.setText("Name: " + student.getName());
+            textViewStudentAge.setText("Age: " + String.valueOf(student.getAge()));
+            textViewStudentClass.setText("Class: " + student.getClassName());
+        }
+        // Update the status text based on the sabaqStatus, manzilStatus, and sabaqiStatus
+        if (sabaqStatus) {
+            String sabaqStatusText = "Previous Sabaq done which was Para: " + sabaqPara +
+                    ", Surah: " + sabaqSurah + ", Verse: " + sabaqVerse;
+            textViewSabaqStatus1.setText(sabaqStatusText);
+        } else {
+            String sabaqStatusText = "Previous Sabaq not done which was Para: " + sabaqPara +
+                    ", Surah: " + sabaqSurah + ", Verse: " + sabaqVerse;
+            textViewSabaqStatus1.setText(sabaqStatusText);
+        }
+
+        if (manzilStatus) {
+            String manzilStatusText = "Previous Manzil done which was Para: " + manzilPara;
+            textViewManzilStatus1.setText(manzilStatusText);
+        } else {
+            String manzilStatusText = "Previous Manzil not done which was Para: " + manzilPara;
+            textViewManzilStatus1.setText(manzilStatusText);
+        }
+
+        if (sabaqiStatus) {
+            String sabaqiStatusText = "Previous Sabaqi done which was Para: " + sabaqiPara;
+            textViewSabaqiStatus1.setText(sabaqiStatusText);
+        } else {
+            String sabaqiStatusText = "Previous Sabaqi not done which was Para: " + sabaqiPara;
+            textViewSabaqiStatus1.setText(sabaqiStatusText);
+        }
 
 
-        sabqitextview=findViewById(R.id.SabqiParaNo);
-
-        manziltextview=findViewById(R.id.ManzilParaNo);
-        manzildone=findViewById(R.id.ManzilDone);
-        manzilrepeat=findViewById(R.id.ManzilRepeat);
-
-        assignsabaq.setEnabled(false);
-        assignsabaq.setBackgroundColor(ContextCompat.getColor(this, R.color.disabledbuttoncolor));
-
-        Intent a = getIntent();
-        int id = a.getIntExtra("studentId",0);
-
-        db = new DatabaseHelper(this);
-        Student student=db.getStudentById(id);
-
-        studentname.setText(student.getName());
-        sabaqtextview.setText(String.valueOf(student.getSabaq_start() +" -  " + student.getSabaq_end()));
-
-        sabqitextview.setText(String.valueOf(student.getSabqi()));
-
-        parano.setText(String.valueOf(student.getCurrent_para()));
-
-        manziltextview.setText(String.valueOf(student.getCurrent_manzil_para()));
-        assignsabaq.setEnabled(false);
-        assignsabaq.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-
-        manzilrepeat.setOnClickListener(new View.OnClickListener() {
+        Button buttonAssignTask = findViewById(R.id.buttonAssignTask);
+        buttonAssignTask.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                manzildone.setEnabled(false);
-                manzildone.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-            }
-        });
+            public void onClick(View v) {
+                // Retrieve the values entered in the EditText fields
+                EditText editTextSabaqPara = findViewById(R.id.editTextSabaqPara);
+                EditText editTextSabaqSurah = findViewById(R.id.editTextSabaqSurah);
+                EditText editTextSabaqVerse = findViewById(R.id.editTextSabaqVerse);
+                EditText editTextManzilPara = findViewById(R.id.editTextManzilPara);
+                EditText editTextSabaqiPara = findViewById(R.id.editTextSabaqiPara);
 
-        sabaqdone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sabaqrepeat.setEnabled(false);
-                sabaqrepeat.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-                assignsabaq.setEnabled(true);
-                assignsabaq.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.purple_500));
-            }
-        });
-        sabaqrepeat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sabaqdone.setEnabled(false);
-                sabaqdone.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-            }
-        });
-        assignsabaq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+                String sabaqParaNumber = editTextSabaqPara.getText().toString();
+                String sabaqSurah = editTextSabaqSurah.getText().toString();
+                String sabaqVerse = editTextSabaqVerse.getText().toString();
+                String manzilParaNumber = editTextManzilPara.getText().toString();
+                String sabaqiParaNumber = editTextSabaqiPara.getText().toString();
 
-                Intent intent = new Intent(AssignTasks.this, ViewProgress.class);
-                intent.putExtra("ID",student.getId());
-                startActivity(intent);
+                // Update the task values in the database
+                Task task = new Task();
+                task.setStudentId(studentId);
+                task.setSabaqPara(sabaqParaNumber);
+                task.setSabaqSurah(sabaqSurah);
+                task.setSabaqVerse(sabaqVerse);
+                task.setManzilPara(manzilParaNumber);
+                task.setSabaqiPara(sabaqiParaNumber);
 
-
-            }
-        });
-
-        manzildone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manzilrepeat.setEnabled(false);
-                manzilrepeat.setBackgroundColor(ContextCompat.getColor(AssignTasks.this, R.color.disabledbuttoncolor));
-                if(student.getCurrent_manzil_para()< student.getManzil_range()){
-                    db.updateCurrentManzilPara(id,student.getCurrent_manzil_para());
-                    manzildone.setEnabled(false);
-                    manzildone.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-                    manziltextview.setText(String.valueOf(student.getCurrent_manzil_para()));
+                long taskId = databaseHelper.insertTask(AssignTasks.this,task);
+                if (taskId != -1) {
+                    Toast.makeText(AssignTasks.this, "Task assigned successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(AssignTasks.this, "Failed to assign task.", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    db.updateCurrentManzilPara(id,0);
-                    manzildone.setEnabled(false);
-                    manzildone.setBackgroundColor(ContextCompat.getColor(AssignTasks.this,R.color.disabledbuttoncolor));
-                    manziltextview.setText(String.valueOf(student.getCurrent_manzil_para()));
-                }
+                finish();
             }
-
         });
-
-
-
-
-
-
-
-
-
     }
 }

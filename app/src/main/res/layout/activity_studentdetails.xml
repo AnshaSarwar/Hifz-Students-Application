@@ -33,15 +33,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add student detail"
+            android:text="Assign Sabaq,Sabaqi,Manzil"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:gravity="center" />
         <Button
-            android:id="@+id/btnAddNewStudent"
+            android:id="@+id/buttonAssignTask"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add New Student" />
+            android:text="Assign Tasks" />
         <Space
             android:layout_width="match_parent"
             android:layout_height="50dp" />
@@ -49,16 +49,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="To retrieve student"
+            android:text="For previous Sabaq,Sabaqi,Manzil"
             android:textSize="16sp"
             android:layout_gravity="center"
             android:gravity="center" />
 
         <Button
-            android:id="@+id/btnSeeListOfStudents"
+            android:id="@+id/buttonSeePreviousHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See List of Students" />
+            android:text="Display Previous History" />
 
     </LinearLayout>
 
