@@ -67,6 +67,12 @@
         android:text="Sabaq: "
         android:textStyle="bold"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textViewSabaqStatus1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous Sabaq:"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextSabaqPara"
@@ -97,6 +103,13 @@
         android:text="Manzil: "
         android:textStyle="bold"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textViewManzilStatus1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous Manzil:"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/editTextManzilPara"
         android:layout_width="match_parent"
@@ -112,6 +125,12 @@
         android:text="Sabaqi: "
         android:textStyle="bold"
         android:textSize="18sp" />
+    <TextView
+        android:id="@+id/textViewSabaqiStatus1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous Sabaqi:"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editTextSabaqiPara"

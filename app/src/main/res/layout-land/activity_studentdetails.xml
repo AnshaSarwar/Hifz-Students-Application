@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hifz Application"
+        android:textAllCaps="true"
+        android:textSize="15sp"
+        android:layout_margin="16dp"
+        android:textColor="#212121"
+        android:textStyle="bold" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000" />
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assign Sabaq,Sabaqi,Manzil"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+        <Button
+            android:id="@+id/buttonAssignTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Assign Tasks" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="For previous Sabaq,Sabaqi,Manzil"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/buttonSeePreviousHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Display Previous History" />
+
+    </LinearLayout>
+
+</LinearLayout>

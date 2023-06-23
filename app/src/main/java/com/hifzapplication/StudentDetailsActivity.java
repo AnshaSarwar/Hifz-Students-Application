@@ -35,10 +35,18 @@ public class StudentDetailsActivity extends AppCompatActivity {
         // Set the title of the activity as the student's name
         //setTitle(studentName);
 
+
+
+
+
         buttonAssignTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(StudentDetailsActivity.this, AssignTasks.class);
+                intent.putExtra("studentId", studentId);
+                intent.putExtra("studentName", studentName);
+                intent.putExtra("studentClass", studentClass);
+                intent.putExtra("studentAge", studentAge);
                 startActivity(intent);
             }
         });

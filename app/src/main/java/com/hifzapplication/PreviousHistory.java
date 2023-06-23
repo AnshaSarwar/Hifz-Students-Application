@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.widget.TextView;
 import android.widget.RadioButton;
 
+import java.util.List;
+
 public class PreviousHistory extends AppCompatActivity {
 
-    private TextView textViewStudentId, textViewStudentName, textViewStudentAge, textViewStudentClass;
+    private TextView textViewStudentId, textViewStudentName, textViewStudentAge, textViewStudentClass, textViewTaskHistory;
 
     private int studentId;
     private String studentName;
@@ -37,6 +39,7 @@ public class PreviousHistory extends AppCompatActivity {
         textViewStudentName = findViewById(R.id.textViewStudentName);
         textViewStudentAge = findViewById(R.id.textViewStudentAge);
         textViewStudentClass = findViewById(R.id.textViewStudentClass);
+        textViewTaskHistory = findViewById(R.id.textViewTaskHistory);
 
 
         // Retrieve and display the student details
@@ -47,6 +50,20 @@ public class PreviousHistory extends AppCompatActivity {
             textViewStudentAge.setText("Age: "+String.valueOf(student.getAge()));
             textViewStudentClass.setText("Class: "+student.getClassName());
         }
+
+        List<Task> taskList = databaseHelper.getTasksByStudentIdAndTaskId(studentId);
+        if (taskList.isEmpty()) {
+            textViewTaskHistory.setText("No task history available");
+        } else {
+            StringBuilder taskHistoryBuilder = new StringBuilder();
+            for (Task task : taskList) {
+                taskHistoryBuilder.append("Task ID: ").append(task.getTaskId()).append("\n");
+                taskHistoryBuilder.append("Sabaq Para: ").append(task.getSabaqPara()).append(", Surah: ").append(task.getSabaqSurah()).append(", Verse: ").append(task.getSabaqVerse()).append("\n");
+                taskHistoryBuilder.append("Manzil Para: ").append(task.getManzilPara()).append("\n");
+                taskHistoryBuilder.append("Sabaqi Para: ").append(task.getSabaqiPara()).append("\n\n");
+            }
+            textViewTaskHistory.setText(taskHistoryBuilder.toString());
+        };
 
     }
 }
